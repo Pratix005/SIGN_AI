@@ -1,0 +1,16 @@
+# Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Node / Dependencies
+node_modules/
+node_modules_del/
+node_modules_del2/
+dist/
+build/
+
+# Archive & Redundant Folders
+Redesign for Aesthetic Upgrade.zip
+Redesign for Aesthetic Upgrade/
+frontend_old_src/

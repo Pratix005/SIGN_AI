@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import GestureApp from '../imports/GestureApp';
-import TranslationApp from '../imports/TranslationApp';
-import PracticeApp from '../imports/PracticeApp';
+import GestureApp from './imports/GestureApp';
+import TranslationApp from './imports/TranslationApp';
+import PracticeApp from './imports/PracticeApp';
 
 const G = `
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap');
@@ -143,11 +143,7 @@ const FEATURES = [
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-interface LandingProps {
-  onNavigate: (page: string) => void;
-}
-
-function Landing({ onNavigate }: LandingProps) {
+function Landing({ onNavigate }) {
   return (
     <>
       <section className="hero">
@@ -181,7 +177,7 @@ function Landing({ onNavigate }: LandingProps) {
         <h2 className="features-title">THREE PHASES.<br /><span>ONE MISSION.</span></h2>
         <div className="features-grid">
           {FEATURES.map((f,i) => (
-            <div key={i} className="feature-card" style={{"--accent":f.accent} as React.CSSProperties} onClick={() => onNavigate(f.page)}>
+            <div key={i} className="feature-card" style={{"--accent":f.accent}} onClick={() => onNavigate(f.page)}>
               <div className="feature-num">{f.num}</div>
               <div className="feature-icon">{f.icon}</div>
               <div className="feature-name">{f.name}</div>
@@ -262,11 +258,7 @@ export default function App() {
     const el = document.createElement("style");
     el.textContent = G;
     document.head.appendChild(el);
-    return () => {
-      if (document.head.contains(el)) {
-        document.head.removeChild(el);
-      }
-    };
+    return () => document.head.removeChild(el);
   }, []);
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
@@ -298,7 +290,6 @@ export default function App() {
               <div className="app-page-title">GESTURE</div>
               <div className="app-page-sub">Phase 1 · Real-time hand sign recognition via camera</div>
             </div>
-            {/* @ts-ignore */}
             <GestureApp />
           </div>
         )}
@@ -308,7 +299,6 @@ export default function App() {
               <div className="app-page-title">TRANSLATE</div>
               <div className="app-page-sub">Phase 2 · Sign → text → speech and speech → sign</div>
             </div>
-            {/* @ts-ignore */}
             <TranslationApp />
           </div>
         )}
@@ -318,7 +308,6 @@ export default function App() {
               <div className="app-page-title">PRACTICE</div>
               <div className="app-page-sub">Phase 3 · AI-powered learning with pose scoring and feedback</div>
             </div>
-            {/* @ts-ignore */}
             <PracticeApp />
           </div>
         )}

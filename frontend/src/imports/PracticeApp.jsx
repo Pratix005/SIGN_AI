@@ -25,28 +25,28 @@ const SIGN_LIBRARY = {
 };
 
 const FINGER_COLORS = {
-  correct: "#00e5a0",
+  correct: "#10b981",
   warning: "#ffb74d",
-  error:   "#ff4d6d",
+  error:   "#ef4444",
 };
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap');
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#04070f;--bg2:#080d1a;--bg3:#0d1424;--bg4:#111827;
-    --border:rgba(0,212,255,0.1);--border-b:rgba(0,212,255,0.3);
-    --cyan:#00d4ff;--cyan-d:rgba(0,212,255,0.1);
-    --amber:#ffb74d;--amber-d:rgba(255,183,77,0.1);
-    --green:#00e5a0;--green-d:rgba(0,229,160,0.1);
-    --red:#ff4d6d;--red-d:rgba(255,77,109,0.1);
+    --bg:#09090b;--bg2:#0d0d10;--bg3:#131317;--bg4:#181822;
+    --border:rgba(139,92,246,0.1);--border-b:rgba(139,92,246,0.3);
+    --cyan:#8b5cf6;--cyan-d:rgba(139,92,246,0.1);
+    --amber:#10b981;--amber-d:rgba(16,185,129,0.1);
+    --green:#10b981;--green-d:rgba(16,185,129,0.1);
+    --red:#ef4444;--red-d:rgba(239,68,68,0.1);
     --purple:#a78bfa;--purple-d:rgba(167,139,250,0.1);
-    --text:#c8d8e8;--text-d:#4a6070;--text-m:#2a3a4a;
-    --fd:'Syne',sans-serif;--fm:'DM Mono',monospace;
+    --text:#f0f0f5;--text-d:#71727a;--text-m:#27272a;
+    --fd:'Plus Jakarta Sans',sans-serif;--fm:'Inter',sans-serif;
   }
   body{background:var(--bg);color:var(--text);font-family:var(--fm)}
 
-  .p3{min-height:100vh;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden}
+  .p3{display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden}
   .p3::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 
   /* Header */
@@ -88,7 +88,7 @@ const css = `
   .sign-item-status.practiced{background:var(--amber)}
 
   /* Main practice area */
-  .practice-area{flex:1;padding:24px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+  .practice-area{flex:1;padding:24px;display:flex;flex-direction:column;gap:16px;overflow-y:visible}
 
   /* Top row — camera + score */
   .practice-top{display:flex;gap:16px}
@@ -219,7 +219,7 @@ function playAudioCue(type) {
 function ScoreRing({ score, grade }) {
   const r = 44, circ = 2 * Math.PI * r;
   const fill = (score / 100) * circ;
-  const color = score >= 85 ? "#00e5a0" : score >= 70 ? "#00d4ff" : score >= 50 ? "#ffb74d" : "#ff4d6d";
+  const color = score >= 85 ? "#10b981" : score >= 70 ? "#8b5cf6" : score >= 50 ? "#ffb74d" : "#ef4444";
   return (
     <div className="score-ring">
       <svg viewBox="0 0 100 100">
@@ -371,14 +371,14 @@ export default function PracticeApp() {
       ctx.beginPath();
       ctx.moveTo(landmarks[a][0] * W, landmarks[a][1] * H);
       ctx.lineTo(landmarks[b][0] * W, landmarks[b][1] * H);
-      ctx.strokeStyle = "rgba(0,212,255,0.4)";
+      ctx.strokeStyle = "rgba(139,92,246,0.4)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
     });
 
     landmarks.forEach((pt, i) => {
       const st = jointStatus[i];
-      const col = st === "correct" ? "#00e5a0" : st === "warning" ? "#ffb74d" : st === "error" ? "#ff4d6d" : i === 0 ? "#00d4ff" : "rgba(255,255,255,0.8)";
+      const col = st === "correct" ? "#10b981" : st === "warning" ? "#ffb74d" : st === "error" ? "#ef4444" : i === 0 ? "#8b5cf6" : "rgba(255,255,255,0.8)";
       ctx.beginPath();
       ctx.arc(pt[0] * W, pt[1] * H, i === 0 ? 7 : 4, 0, Math.PI * 2);
       ctx.fillStyle = col;
@@ -599,7 +599,7 @@ export default function PracticeApp() {
                   <div className="progress-bar-wrap">
                     <div className="progress-bar-fill" style={{
                       width: `${score}%`,
-                      background: score >= 85 ? "#00e5a0" : score >= 70 ? "#00d4ff" : score >= 50 ? "#ffb74d" : "#ff4d6d"
+                      background: score >= 85 ? "#10b981" : score >= 70 ? "#8b5cf6" : score >= 50 ? "#ffb74d" : "#ef4444"
                     }} />
                   </div>
                 </div>

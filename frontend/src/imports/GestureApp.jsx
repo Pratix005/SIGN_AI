@@ -16,17 +16,17 @@ const css = `
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #04070f; --bg2: #080d1a; --bg3: #0d1424;
-    --border: rgba(0,212,255,0.12); --border-bright: rgba(0,212,255,0.35);
-    --cyan: #00d4ff; --cyan-dim: rgba(0,212,255,0.12);
-    --amber: #ffb74d; --amber-dim: rgba(255,183,77,0.1);
-    --green: #00e5a0; --red: #ff4d6d; --purple: #a78bfa;
-    --text: #c8d8e8; --text-dim: #4a6070; --text-muted: #2a3a4a;
-    --font-d: 'Syne', sans-serif; --font-m: 'DM Mono', monospace;
+    --bg: #09090b; --bg2: #0d0d10; --bg3: #131317;
+    --border: rgba(139,92,246,0.12); --border-bright: rgba(139,92,246,0.35);
+    --cyan: #8b5cf6; --cyan-dim: rgba(139,92,246,0.12);
+    --amber: #10b981; --amber-dim: rgba(16,185,129,0.1);
+    --green: #10b981; --red: #ef4444; --purple: #a78bfa;
+    --text: #f0f0f5; --text-dim: #71727a; --text-muted: #27272a;
+    --font-d: 'Plus Jakarta Sans', sans-serif; --font-m: 'Inter', sans-serif;
   }
   body { background: var(--bg); color: var(--text); font-family: var(--font-m); }
 
-  .app2 { min-height:100vh; display:flex; flex-direction:column; background:var(--bg); position:relative; overflow:hidden; }
+  .app2 { display:flex; flex-direction:column; background:var(--bg); position:relative; overflow:hidden; }
   .app2::before { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; z-index:0; }
   .app2::after { content:''; position:fixed; top:-200px; left:50%; transform:translateX(-50%); width:700px; height:400px; background:radial-gradient(ellipse,rgba(0,212,255,0.05) 0%,transparent 70%); pointer-events:none; z-index:0; }
 
@@ -265,15 +265,15 @@ export default function TranslationApp() {
       ctx.beginPath();
       ctx.moveTo(landmarks[a][0] * W, landmarks[a][1] * H);
       ctx.lineTo(landmarks[b][0] * W, landmarks[b][1] * H);
-      ctx.strokeStyle = "rgba(0,212,255,0.5)";
+      ctx.strokeStyle = "rgba(139,92,246,0.5)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
     });
     landmarks.forEach((pt, i) => {
       ctx.beginPath();
       ctx.arc(pt[0] * W, pt[1] * H, i === 0 ? 6 : 4, 0, Math.PI * 2);
-      ctx.fillStyle = i === 0 ? "#00d4ff" : "rgba(255,255,255,0.85)";
-      if (i === 0) { ctx.shadowColor = "#00d4ff"; ctx.shadowBlur = 8; }
+      ctx.fillStyle = i === 0 ? "#8b5cf6" : "rgba(255,255,255,0.85)";
+      if (i === 0) { ctx.shadowColor = "#8b5cf6"; ctx.shadowBlur = 8; }
       ctx.fill();
       ctx.shadowBlur = 0;
     });

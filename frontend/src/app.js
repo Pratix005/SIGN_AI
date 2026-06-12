@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import GestureApp from './imports/GestureApp';
 import TranslationApp from './imports/TranslationApp';
 import PracticeApp from './imports/PracticeApp';
+import AIApp from './imports/AIApp';
 
 const G = `
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap');
@@ -268,6 +269,7 @@ export default function App() {
     {key:"gesture",label:"Phase 1 · Gesture"},
     {key:"translate",label:"Phase 2 · Translate"},
     {key:"practice",label:"Phase 3 · Practice"},
+    {key:"ai",label:"AI Features"},
   ];
 
   return (
@@ -300,6 +302,15 @@ export default function App() {
               <div className="app-page-sub">Phase 2 · Sign → text → speech and speech → sign</div>
             </div>
             <TranslationApp />
+          </div>
+        )}
+        {page==="ai" && (
+          <div>
+            <div className="app-page-header">
+              <div className="app-page-title">AI FEATURES</div>
+              <div className="app-page-sub">Ollama powered · Tutor · Lesson Generator · Sign Coach</div>
+            </div>
+            <AIApp />
           </div>
         )}
         {page==="practice" && (

@@ -19,29 +19,28 @@ const css = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #04070f;
-    --bg2: #080d1a;
-    --bg3: #0d1424;
-    --border: rgba(0,212,255,0.12);
-    --border-bright: rgba(0,212,255,0.35);
-    --cyan: #00d4ff;
-    --cyan-dim: rgba(0,212,255,0.15);
-    --amber: #ffb74d;
-    --amber-dim: rgba(255,183,77,0.12);
-    --green: #00e5a0;
-    --green-dim: rgba(0,229,160,0.12);
-    --red: #ff4d6d;
-    --text: #c8d8e8;
-    --text-dim: #4a6070;
-    --text-muted: #2a3a4a;
-    --font-display: 'Syne', sans-serif;
-    --font-mono: 'DM Mono', monospace;
+    --bg: #09090b;
+    --bg2: #0d0d10;
+    --bg3: #131317;
+    --border: rgba(139,92,246,0.12);
+    --border-bright: rgba(139,92,246,0.35);
+    --cyan: #8b5cf6;
+    --cyan-dim: rgba(139,92,246,0.12);
+    --amber: #10b981;
+    --amber-dim: rgba(16,185,129,0.12);
+    --green: #10b981;
+    --green-dim: rgba(16,185,129,0.12);
+    --red: #ef4444;
+    --text: #f0f0f5;
+    --text-dim: #71727a;
+    --text-muted: #27272a;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'Inter', sans-serif;
   }
 
   body { background: var(--bg); color: var(--text); font-family: var(--font-mono); }
 
   .app {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: var(--bg);
@@ -177,7 +176,6 @@ const css = `
     display: flex;
     flex: 1;
     gap: 0;
-    height: calc(100vh - 110px);
   }
 
   /* Columns */
@@ -187,7 +185,7 @@ const css = `
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
+    overflow-y: visible;
   }
 
   .side-col {
@@ -198,7 +196,7 @@ const css = `
     flex-direction: column;
     gap: 24px;
     background: rgba(8,13,26,0.4);
-    overflow-y: auto;
+    overflow-y: visible;
   }
 
   /* Camera Container */
@@ -887,7 +885,7 @@ export default function TranslationApp() {
       ctx.beginPath();
       ctx.moveTo(landmarks[a][0] * W, landmarks[a][1] * H);
       ctx.lineTo(landmarks[b][0] * W, landmarks[b][1] * H);
-      ctx.strokeStyle = "rgba(0,212,255,0.5)";
+      ctx.strokeStyle = "rgba(139,92,246,0.5)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
     });
@@ -896,8 +894,8 @@ export default function TranslationApp() {
       ctx.beginPath();
       ctx.arc(pt[0] * W, pt[1] * H, i === 0 ? 7 : 4, 0, Math.PI * 2);
       if (i === 0) {
-        ctx.fillStyle = "#00d4ff";
-        ctx.shadowColor = "#00d4ff";
+        ctx.fillStyle = "#8b5cf6";
+        ctx.shadowColor = "#8b5cf6";
         ctx.shadowBlur = 8;
       } else {
         ctx.fillStyle = "rgba(255,255,255,0.85)";

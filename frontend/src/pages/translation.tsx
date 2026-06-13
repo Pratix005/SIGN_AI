@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { WorkspaceHeader } from "@/components/layout/WorkspaceHeader";
-import { StatusBadge } from "@/components/workspace/StatusBadge";
 import { CameraFeed } from "@/components/workspace/CameraFeed";
 import { Brain, Trash2, Plus, ArrowRight, Volume2, Mic, MicOff, RotateCw } from "lucide-react";
 
@@ -399,10 +398,6 @@ export default function Translation() {
   return (
     <div className="min-h-[100dvh] pt-16 flex flex-col bg-background">
       <canvas ref={canvasRef} style={{ display: "none" }} />
-      <div className="h-10 bg-background border-b border-border flex items-center px-6 gap-4 text-xs">
-        <StatusBadge label="Gesture API (8000)" status={gestureApiLive ? "active" : "inactive"} />
-        <StatusBadge label="Translation API (8001)" status={translationApiLive ? "active" : "inactive"} />
-      </div>
 
       <WorkspaceHeader 
         title="SignAI"

@@ -42,7 +42,7 @@ function HandSkeleton() {
   return (
     <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
       <defs>
-        <linearGradient id="edgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="edgeGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#7c3aed" />
           <stop offset="100%" stopColor="#4f46e5" />
         </linearGradient>
@@ -84,7 +84,7 @@ function HandSkeleton() {
 // ─── Terminal ─────────────────────────────────────────────────────────────────
 
 const LOG_LINES = [
-  { type: "CONNECT", text: "Translation API online on port 8001." },
+  { type: "CONNECT", text: "Translation API online." },
   { type: "INFO",    text: "Running gesture inference loop at latency ~14ms." },
   { type: "SYSTEM",  text: "Telemetry feed connected." },
   { type: "OK",      text: "Hand landmarks calibration matches default ISL/ASL profile." },

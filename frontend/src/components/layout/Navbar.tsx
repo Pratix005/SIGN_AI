@@ -1,6 +1,5 @@
 import { Link, useLocation } from "wouter";
 import { Activity, Brain, LayoutDashboard, Target, Zap } from "lucide-react";
-import { StatusBadge } from "../workspace/StatusBadge";
 
 export function Navbar() {
   const [location] = useLocation();
@@ -10,7 +9,7 @@ export function Navbar() {
     { href: "/gesture", label: "Gesture", icon: Zap },
     { href: "/practice", label: "Practice", icon: Target },
     { href: "/translation", label: "Translation", icon: Activity },
-    { href: "/ai", label: "AI Models", icon: Brain },
+    { href: "/ai", label: "Chat with AI", icon: Brain },
   ];
 
   return (
@@ -51,7 +50,6 @@ export function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <StatusBadge label="Backend Services Active" status="active" />
       </div>
     </header>
   );

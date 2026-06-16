@@ -2,6 +2,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { WorkspaceHeader } from "@/components/layout/WorkspaceHeader";
 import { CameraFeed } from "@/components/workspace/CameraFeed";
 import { Brain, Trash2, Plus, ArrowRight, Volume2, Mic, MicOff, RotateCw } from "lucide-react";
+import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
+
 
 const GESTURE_API = "https://sign-ai-ag5z.onrender.com";
 const TRANSLATION_API = "https://signai-translation.onrender.com";
@@ -23,6 +25,37 @@ interface SignItem {
 
 export default function Translation() {
   const [activeMode, setActiveMode] = useState<'s2t' | 't2s'>('s2t');
+  
+  const handLandmarkerRef = useRef<any>(null);
+  const isLandmarkerLoadingRef = useRef(false);
+  const [isLandmarkerReady, setIsLandmarkerReady] = useState(false);
+
+  // Initialize HandLandmarker on mount
+  useEffect(() => {
+    const initLandmarker = async () => {
+      if (handLandmarkerRef.current || isLandmarkerLoadingRef.current) return;
+      isLandmarkerLoadingRef.current = true;
+      try {
+        const vision = await FilesetResolver.forVisionTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+        );
+        handLandmarkerRef.current = await HandLandmarker.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+            delegate: "GPU"
+          },
+          runningMode: "VIDEO",
+          numHands: 1
+        });
+        setIsLandmarkerReady(true);
+      } catch (err) {
+        console.error("Failed to load MediaPipe HandLandmarker:", err);
+      } finally {
+        isLandmarkerLoadingRef.current = false;
+      }
+    };
+    initLandmarker();
+  }, []);
   
   // Health checks
   const [gestureApiLive, setGestureApiLive] = useState(false);
@@ -109,24 +142,48 @@ export default function Translation() {
   const startPredicting = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(async () => {
-      const frame = captureFrame();
-      if (!frame) return;
+      const video = videoRef.current;
+      if (!video || video.readyState < 2 || !handLandmarkerRef.current) return;
       try {
-        const res = await fetch(`${GESTURE_API}/predict`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ frame }),
-        });
-        const data = await res.json();
-        setPrediction(data.sign);
-        setConfidence(data.confidence);
-        setLandmarks(data.landmarks || []);
-      } catch {}
+        const timestamp = performance.now();
+        const result = handLandmarkerRef.current.detectForVideo(video, timestamp);
+        if (result.landmarks && result.landmarks.length > 0) {
+          const lm = result.landmarks[0];
+          const wrist = lm[0];
+          const coords: number[] = [];
+          for (const pt of lm) {
+            coords.push(pt.x - wrist.x, pt.y - wrist.y, pt.z - wrist.z);
+          }
+          const raw = lm.map(pt => [pt.x, pt.y]);
+          
+          setLandmarks(raw);
+
+          // Call the coordinate-based predict endpoint
+          const res = await fetch(`${GESTURE_API}/predict-coords`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ coords }),
+          });
+          const data = await res.json();
+          setPrediction(data.sign);
+          setConfidence(data.confidence);
+        } else {
+          setPrediction(null);
+          setConfidence(0);
+          setLandmarks([]);
+        }
+      } catch (e) {
+        console.error("Local hand landmark extraction or prediction failed:", e);
+      }
     }, 150);
-  }, [captureFrame]);
+  }, []);
 
   // Start camera stream
   const startCamera = async () => {
+    if (!handLandmarkerRef.current) {
+      alert("MediaPipe Hand Tracker model is still loading. Please wait a moment and try again.");
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
       if (videoRef.current) {

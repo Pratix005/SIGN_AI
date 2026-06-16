@@ -128,6 +128,34 @@ def predict(payload: FramePayload):
     }
 
 
+class CoordsPayload(BaseModel):
+    coords: list[float]
+
+
+@app.post("/predict-coords")
+def predict_coords(payload: CoordsPayload):
+    """
+    Accepts raw landmarks coordinates (63 floats) and returns the sign prediction.
+    """
+    if len(payload.coords) < 63:
+        return {"sign": None, "confidence": 0, "message": "Invalid coordinates payload"}
+
+    if classifier is not None:
+        proba = classifier.predict_proba([payload.coords])[0]
+        idx = int(np.argmax(proba))
+        confidence = float(proba[idx])
+        sign = label_map.get(str(idx), f"class_{idx}")
+    else:
+        sign = "untrained"
+        confidence = 0.0
+
+    return {
+        "sign": sign,
+        "confidence": round(confidence, 3),
+    }
+
+
+
 @app.get("/status")
 def status():
     """Tell the frontend what phase the app is in."""

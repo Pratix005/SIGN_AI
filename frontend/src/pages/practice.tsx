@@ -3,8 +3,8 @@ import { CameraFeed } from "@/components/workspace/CameraFeed";
 import { WorkspaceHeader } from "@/components/layout/WorkspaceHeader";
 import { Flame, Target, ChevronRight, Save, Play, Square } from "lucide-react";
 
-const GESTURE_API = "http://localhost:8000";
-const SCORING_API = "http://localhost:8002";
+const GESTURE_API = "https://sign-ai-ag5z.onrender.com";
+const SCORING_API = "https://signai-scoring.onrender.com";
 
 const HAND_CONNECTIONS = [
   [0, 1], [1, 2], [2, 3], [3, 4],

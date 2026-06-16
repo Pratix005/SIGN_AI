@@ -3,8 +3,9 @@ import { Activity, RotateCcw, Play, Square, Volume2, Mic, MicOff, RotateCw, Brai
 import { CameraFeed } from "@/components/workspace/CameraFeed";
 import { WorkspaceHeader } from "@/components/layout/WorkspaceHeader";
 
-const GESTURE_API = "http://localhost:8000";
-const TRANSLATION_API = "http://localhost:8001";
+const GESTURE_API = "https://sign-ai-ag5z.onrender.com";
+const TRANSLATION_API = "https://signai-translation.onrender.com";
+
 
 const HAND_CONNECTIONS = [
   [0, 1], [1, 2], [2, 3], [3, 4],

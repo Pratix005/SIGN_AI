@@ -16,7 +16,7 @@ import {
   Zap
 } from "lucide-react";
 
-const LLM_API = "http://localhost:8003";
+const LLM_API = "https://signai-translation.onrender.com";
 
 const QUICK_QUESTIONS = [
   "How do I sign HELLO in ISL?",

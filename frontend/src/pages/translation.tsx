@@ -3,8 +3,9 @@ import { WorkspaceHeader } from "@/components/layout/WorkspaceHeader";
 import { CameraFeed } from "@/components/workspace/CameraFeed";
 import { Brain, Trash2, Plus, ArrowRight, Volume2, Mic, MicOff, RotateCw } from "lucide-react";
 
-const GESTURE_API = "http://localhost:8000";
-const TRANSLATION_API = "http://localhost:8001";
+const GESTURE_API = "https://sign-ai-ag5z.onrender.com";
+const TRANSLATION_API = "https://signai-translation.onrender.com";
+
 
 const HAND_CONNECTIONS = [
   [0, 1], [1, 2], [2, 3], [3, 4],
